@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.andjdk.hvscrollview.MainActivity">
+
+    <com.andjdk.hvscrollview.HVScrollView
+        android:id="@+id/hv_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.andjdk.hvscrollview.HVScrollView>
+</RelativeLayout>

@@ -24,7 +24,7 @@
  * #               佛祖保佑         永无BUG            #
  * #                                                   #
  */
-package com.andjdk.hvscrollview;
+package com.andjdk.hvscrollview.bean;
 
 /**
  * Created by andjdk on 2016/10/11.

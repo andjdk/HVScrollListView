@@ -24,7 +24,7 @@
  * #               佛祖保佑         永无BUG            #
  * #                                                   #
  */
-package com.andjdk.hvscrollview;
+package com.andjdk.hvscrollview.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -39,10 +39,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.andjdk.hvscrollview.base.CommonAdapter;
+import com.andjdk.hvscrollview.utils.DisplayUtil;
 
-import static com.andjdk.hvscrollview.DisplayUtil.dip2px;
+import java.util.ArrayList;
+
+import static com.andjdk.hvscrollview.utils.DisplayUtil.dip2px;
 
 /**
  * Created by andjdk on 2015/11/3.
@@ -59,11 +61,6 @@ public class HVScrollView extends RelativeLayout {
 
     private String[] mFixLeftListColumnsText ;
     private int[] mFixLeftListColumnsWidth;
-    /**
-     * 列表头的高和宽
-     */
-    private int mTitleHeight = 30;
-    private int mTitleWidth = 60;
 
     private String[] mMovableListColumnsText=new String[]{};
     private int[] mMovableListColumnsWidth =null;
@@ -71,10 +68,10 @@ public class HVScrollView extends RelativeLayout {
     private ListView mStockListView;
 
     private ArrayList<View> mMovableViewList = new ArrayList();
-    public StockListAdapter mAdapter;
+
     private Context context;
     private int mMovableTotalWidth = 0;
-    private List<StockDataInfo> mStockcodeDatas=new ArrayList<StockDataInfo>();
+
 
 //    public static int dip2px(Context context,float dipValue)
 //    {
@@ -145,15 +142,23 @@ public class HVScrollView extends RelativeLayout {
     private View buildMoveableListView() {
         LinearLayout linearLayout=new LinearLayout(getContext());
         mStockListView=new ListView(getContext());
-        mAdapter=new StockListAdapter(getContext(),mMovableViewList,mMovableListColumnsText.length);
-        mAdapter.setStockListDatas(mStockcodeDatas);
-        mStockListView.setAdapter(mAdapter);
+        if(adapter instanceof CommonAdapter){
+            mStockListView.setAdapter((CommonAdapter)adapter);
+            mMovableViewList=((CommonAdapter)adapter).getMovableViewList();
+        }
         mStockListView.setOnItemClickListener(mOnItemClickListener);
         mStockListView.setOnItemLongClickListener(mOnItemLongClickListener);
         linearLayout.addView(mStockListView,new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
         return linearLayout;
     }
+
+    private Object adapter;
+    public void setAdapter(Object adapter){
+        this.adapter=  adapter;
+        initView();
+    }
+
 
     private AdapterView.OnItemClickListener mOnItemClickListener=new AdapterView.OnItemClickListener() {
         @Override
@@ -271,10 +276,10 @@ public class HVScrollView extends RelativeLayout {
                     mLayoutTitleMovable.scrollTo(mMoveOffsetX, 0);
                     if (null != mMovableViewList) {
                         for (int i = 0; i < mMovableViewList.size(); i++) {
+
                             mMovableViewList.get(i).scrollTo(mMoveOffsetX, 0);
                         }
                     }
-                    // mLayoutMovable.scrollTo(mOffsetX, 0);
                 }
                 break;
             case MotionEvent.ACTION_UP:
@@ -285,17 +290,6 @@ public class HVScrollView extends RelativeLayout {
         }
 
         return super.onTouchEvent(event);
-    }
-
-    /**
-     * 初始化列表数据
-     * @param stockList
-     */
-    public void setListData(List<StockDataInfo> stockList){
-        this.mStockcodeDatas=stockList;
-        mAdapter.setStockListDatas(mStockcodeDatas);
-        mStockListView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -315,8 +309,6 @@ public class HVScrollView extends RelativeLayout {
         mFixLeftListColumnsWidth=new int[]{DisplayUtil.dip2px(context,80)};
 //        mMovableListColumnsText=new String[]{"最新价", "涨跌幅", "最高价", "最低价", "开盘价", "收盘价"};
         mFixLeftListColumnsText=new String[]{"名称"};
-
-        initView();
     }
 
 

@@ -2,11 +2,14 @@ package com.andjdk.hvscrollview;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+
+import com.andjdk.hvscrollview.adapter.StockListAdapter;
+import com.andjdk.hvscrollview.bean.StockDataInfo;
+import com.andjdk.hvscrollview.view.HVScrollView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,7 +35,9 @@ public class MainActivity extends AppCompatActivity {
             stockDataInfo.setTotalMarketValue("12.90");
             stockDataInfoList.add(stockDataInfo);
         }
+        //定义顶部栏
         hvScrollView.setHeaderListData(new String[]{"最新价", "涨跌幅", "最高价", "最低价", "开盘价", "收盘价","成交量","总市值"});
-        hvScrollView.setListData(stockDataInfoList);
+        StockListAdapter mAdapter=new StockListAdapter(this,stockDataInfoList,R.layout.item_layout);
+        hvScrollView.setAdapter(mAdapter);
     }
 }

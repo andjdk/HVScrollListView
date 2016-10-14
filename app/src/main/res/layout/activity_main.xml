@@ -7,9 +7,9 @@
 
     tools:context="com.andjdk.hvscrollview.MainActivity">
 
-    <com.andjdk.hvscrollview.HVScrollView
+    <com.andjdk.hvscrollview.view.HVScrollView
         android:id="@+id/hv_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </com.andjdk.hvscrollview.HVScrollView>
+    </com.andjdk.hvscrollview.view.HVScrollView>
 </RelativeLayout>

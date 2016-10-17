@@ -24,15 +24,14 @@
  * #               佛祖保佑         永无BUG            #
  * #                                                   #
  */
-package com.andjdk.hvscrollview.adapter;
+package com.andjdk.hvscrollview;
 
 import android.content.Context;
 import android.view.View;
 
-import com.andjdk.hvscrollview.R;
-import com.andjdk.hvscrollview.base.CommonAdapter;
-import com.andjdk.hvscrollview.base.ViewHolder;
-import com.andjdk.hvscrollview.bean.StockDataInfo;
+
+import com.andjdk.hvscrollviewlibrary.CommonAdapter;
+import com.andjdk.hvscrollviewlibrary.ViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

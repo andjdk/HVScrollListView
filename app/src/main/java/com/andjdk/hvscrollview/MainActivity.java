@@ -6,9 +6,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
-import com.andjdk.hvscrollview.adapter.StockListAdapter;
-import com.andjdk.hvscrollview.bean.StockDataInfo;
-import com.andjdk.hvscrollview.view.HVScrollView;
+
+import com.andjdk.hvscrollviewlibrary.HVScrollView;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -6,11 +6,21 @@ HVScrollListView是一个可以实现横纵滑动的列表控件。如股票列�
 ##使用方式
 
 ###step 1：
-    <com.andjdk.hvscrollview.view.HVScrollView
+ a、把hvscrollviewlibrary-1.0.aar粘贴到lib目录下。b、在build.gradle中增加`repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}` 和dependencies中增加`compile(name: 'hvscrollviewlibrary-1.0', ext: 'aar')`这句，然后sync。这样就可以在项目中使用了
+
+
+
+
+
+    <com.andjdk.hvscrollviewlibrary.HVScrollView
         android:id="@+id/hv_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </com.andjdk.hvscrollview.view.HVScrollView>
+    </com.andjdk.hvscrollviewlibrary.HVScrollView>
 
 ###step 2
     HVScrollView hvScrollView= (HVScrollView) findViewById(R.id.hv_scrollview);

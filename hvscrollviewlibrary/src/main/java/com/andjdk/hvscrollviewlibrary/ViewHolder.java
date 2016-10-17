@@ -24,7 +24,7 @@
  * #               佛祖保佑         永无BUG            #
  * #                                                   #
  */
-package com.andjdk.hvscrollview.base;
+package com.andjdk.hvscrollviewlibrary;
 
 import android.content.Context;
 import android.graphics.Bitmap;

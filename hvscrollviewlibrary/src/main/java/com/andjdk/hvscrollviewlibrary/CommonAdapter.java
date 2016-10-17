@@ -24,10 +24,7 @@
  * #               佛祖保佑         永无BUG            #
  * #                                                   #
  */
-package com.andjdk.hvscrollview.base;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.andjdk.hvscrollviewlibrary;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -36,7 +33,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 
-import com.andjdk.hvscrollview.R;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * listview通用的adapter类

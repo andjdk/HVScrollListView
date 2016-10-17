@@ -24,7 +24,7 @@
  * #               佛祖保佑         永无BUG            #
  * #                                                   #
  */
-package com.andjdk.hvscrollview.view;
+package com.andjdk.hvscrollviewlibrary;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -37,14 +37,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.andjdk.hvscrollview.base.CommonAdapter;
-import com.andjdk.hvscrollview.utils.DisplayUtil;
 
 import java.util.ArrayList;
 
-import static com.andjdk.hvscrollview.utils.DisplayUtil.dip2px;
+import static com.andjdk.hvscrollviewlibrary.DisplayUtil.dip2px;
 
 /**
  * Created by andjdk on 2015/11/3.
@@ -96,7 +92,7 @@ public class HVScrollView extends RelativeLayout {
         linearLayout.addView(buildHeadLayout());
         linearLayout.addView(buildMoveableListView());
 
-        this.addView(linearLayout, new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+        this.addView(linearLayout, new LayoutParams(LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
     }
 
@@ -292,9 +288,9 @@ public class HVScrollView extends RelativeLayout {
         this.mMovableListColumnsText = headerListData;
         mMovableListColumnsWidth = new int[headerListData.length];
         for (int i = 0; i < headerListData.length; i++) {
-            mMovableListColumnsWidth[i] = DisplayUtil.dip2px(context, mMoveViewWidth);
+            mMovableListColumnsWidth[i] = dip2px(context, mMoveViewWidth);
         }
-        mFixLeftListColumnsWidth = new int[]{DisplayUtil.dip2px(context, mFixViewWidth)};
+        mFixLeftListColumnsWidth = new int[]{dip2px(context, mFixViewWidth)};
         mFixLeftListColumnsText = new String[]{"名称"};
     }
 

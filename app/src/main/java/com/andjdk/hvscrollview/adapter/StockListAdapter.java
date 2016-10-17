@@ -28,7 +28,6 @@ package com.andjdk.hvscrollview.adapter;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.andjdk.hvscrollview.R;
 import com.andjdk.hvscrollview.base.CommonAdapter;
@@ -40,6 +39,7 @@ import java.util.List;
 
 /**
  * Created by andjdk on 2016/10/13.
+ *
  */
 public class StockListAdapter extends CommonAdapter<StockDataInfo> {
 
@@ -50,9 +50,6 @@ public class StockListAdapter extends CommonAdapter<StockDataInfo> {
 
     @Override
     public void convert(ViewHolder holder, StockDataInfo stockDataInfo, int position, ArrayList<View> movableViewList) {
-        LinearLayout moveLayout=holder.getView(R.id.move_view);
-        //可滑动的布局LinearLayout
-        movableViewList.add(moveLayout);
         holder.setText(R.id.text1,stockDataInfo.getStockName());
         holder.setText(R.id.text2,stockDataInfo.getPriceLastest());
         holder.setText(R.id.text3,stockDataInfo.getPriceOffsetRate());

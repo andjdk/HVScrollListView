@@ -1,8 +1,10 @@
 package com.andjdk.hvscrollview;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.andjdk.hvscrollview.adapter.StockListAdapter;
 import com.andjdk.hvscrollview.bean.StockDataInfo;
@@ -12,8 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,5 +39,19 @@ public class MainActivity extends AppCompatActivity {
         hvScrollView.setHeaderListData(new String[]{"最新价", "涨跌幅", "最高价", "最低价", "开盘价", "收盘价","成交量","总市值"});
         StockListAdapter mAdapter=new StockListAdapter(this,stockDataInfoList,R.layout.item_layout);
         hvScrollView.setAdapter(mAdapter);
+        //点击列表item
+        hvScrollView.setOnItemClick(new HVScrollView.OnItemClickedListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this,position+"",Toast.LENGTH_SHORT).show();
+            }
+        });
+        //点击头部按钮
+        hvScrollView.setOnHeaderClickedListener(new HVScrollView.OnHeaderClickedListener() {
+            @Override
+            public void onHeadViewClick(String string) {
+                Toast.makeText(MainActivity.this,string,Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

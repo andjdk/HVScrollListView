@@ -13,12 +13,11 @@
             android:layout_width="80dp"
             android:layout_height="50dp"
             android:gravity="center"
-            android:background="@color/colorAccent"
             android:text="1"/>
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/move_view"
+        android:id="@+id/move_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -26,14 +25,12 @@
             android:id="@+id/text2"
             android:layout_width="70dp"
             android:layout_height="50dp"
-            android:background="@color/colorPrimary"
             android:gravity="center"
             android:text="2"/>
         <TextView
             android:id="@+id/text3"
             android:layout_width="70dp"
             android:gravity="center"
-            android:background="@color/colorAccent"
             android:layout_height="50dp"
             android:text="3"/>
         <TextView

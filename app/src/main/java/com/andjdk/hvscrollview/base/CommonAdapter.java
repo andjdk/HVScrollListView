@@ -36,6 +36,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 
+import com.andjdk.hvscrollview.R;
+
 /**
  * listview通用的adapter类
  * @author tanxiongliang
@@ -80,6 +82,8 @@ public abstract class CommonAdapter<T> extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder=ViewHolder.get(mContext, convertView, parent, layoutId, position);
+        LinearLayout moveLayout=holder.getView(R.id.move_layout);
+        movableViewList.add(moveLayout);
         convert(holder,getItem(position),position,movableViewList);
 
         return holder.getConvertView();

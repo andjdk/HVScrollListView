@@ -1,8 +1,7 @@
 # HVScrollListView
 ---
 HVScrollListView是一个可以实现横纵滑动的列表控件。如股票列表。以下为使用此控件实现的效果图：
-
-![](https://github.com/andjdk/HVScrollListView/blob/master/hvscrollview.gif)
+![](https://github.com/andjdk/HVScrollListView/blob/master/index.gif)
 
 ##使用方式
 

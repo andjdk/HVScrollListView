@@ -3,6 +3,11 @@
 HVScrollListView是一个可以实现横纵滑动的列表控件。如股票列表。以下为使用此控件实现的效果图：
 ![](https://github.com/andjdk/HVScrollListView/blob/master/index.gif)
 
+##版本升级
+hvscrollviewlibrary-1.0
+
+hvscrollviewlibrary-1.0.1 :增加了上拉加载更多
+
 ##使用方式
 
 ###step 1：
@@ -151,6 +156,19 @@ HVScrollListView是一个可以实现横纵滑动的列表控件。如股票列�
                 Toast.makeText(MainActivity.this,string,Toast.LENGTH_SHORT).show();
             }
         });
+
+###1.0.1上拉加载更多
+
+    hvScrollView.setOnLoadMoreListener(new HVScrollView.OnLoadMoreListener() {
+            @Override
+            public void onLoadingMore() {
+                //TODO 
+
+            }
+        });
+	//加载成功之后调用此方法
+    hvScrollView.onLoadingComplete();
+
 
 
 到这里就可以是实现想要的功能了，是不是很简单。当然目前还没有增加上拉刷新向下加载更多的功能，这功能还在完善中，敬请期待。如在使用中遇到有什么问题也可以直接联系我。加群：462723796 欢迎大家star或者fork

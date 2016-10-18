@@ -26,15 +26,18 @@
  */
 package com.andjdk.hvscrollviewlibrary;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -71,6 +74,14 @@ public class HVScrollView extends RelativeLayout {
     private int mMoveViewWidth = 70;
     private int mFixViewWidth = 80;
     private int mItemViewHeight=50;
+
+    private LinearLayout footerLayout;
+
+    private boolean isLoading;  //正在加载
+    private int mLastVisibleItem;
+    private int mTotalItemCount;
+    private int mVisibleItemCount;
+    private int mFirstVisibleItem;
 
 
     public HVScrollView(Context context) {
@@ -122,7 +133,7 @@ public class HVScrollView extends RelativeLayout {
 
 
     private View buildMoveableListView() {
-        LinearLayout linearLayout = new LinearLayout(getContext());
+        RelativeLayout linearLayout = new RelativeLayout(getContext());
         mStockListView = new ListView(getContext());
         if(null !=mAdapter){
             if (mAdapter instanceof CommonAdapter) {
@@ -130,13 +141,57 @@ public class HVScrollView extends RelativeLayout {
                 mMovableViewList = ((CommonAdapter) mAdapter).getMovableViewList();
             }
         }
+
+        footerLayout=new LinearLayout(getContext());
+        footerLayout.setGravity(Gravity.CENTER);
+        ProgressBar progressBar =new ProgressBar(getContext());
+        footerLayout.addView(progressBar);
+        footerLayout.setVisibility(GONE);
+        mStockListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                //当滑动到底部时
+                if(mTotalItemCount==mLastVisibleItem && scrollState == SCROLL_STATE_IDLE) {
+                    if (!isLoading) {
+                        isLoading = true;
+                        if(null !=onLoadMoreListener){
+                            onLoadMoreListener.onLoadingMore();
+                            footerLayout.setVisibility(View.VISIBLE);//显示底部布局
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                mFirstVisibleItem = firstVisibleItem;
+                mTotalItemCount=totalItemCount;
+                mLastVisibleItem=firstVisibleItem+visibleItemCount;
+                mVisibleItemCount=visibleItemCount;
+            }
+        });
         mStockListView.setOnItemClickListener(mOnItemClickListener);
         mStockListView.setOnItemLongClickListener(mOnItemLongClickListener);
-        linearLayout.addView(mStockListView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT));
+        linearLayout.addView(footerLayout, LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT);
+        linearLayout.addView(mStockListView, new LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT));
         return linearLayout;
     }
 
+    public void onLoadingComplete(){
+        if(null !=footerLayout){
+            ((Activity)context).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    footerLayout.setVisibility(GONE);
+                    isLoading=false;
+                    mStockListView.setSelection(mLastVisibleItem-mVisibleItemCount+1);
+                }
+            });
+        }
+    }
 
     public void setAdapter(Object adapter) {
         this.mAdapter = adapter;
@@ -311,6 +366,19 @@ public class HVScrollView extends RelativeLayout {
     public interface OnHeaderClickedListener {
         public void onHeadViewClick(String string);
 
+    }
+    private OnLoadMoreListener onLoadMoreListener;
+
+    public OnLoadMoreListener getOnLoadMoreListener() {
+        return onLoadMoreListener;
+    }
+
+    public void setOnLoadMoreListener(OnLoadMoreListener onLoadMoreListener) {
+        this.onLoadMoreListener = onLoadMoreListener;
+    }
+
+    public interface OnLoadMoreListener{
+        void onLoadingMore();
     }
 
     /**

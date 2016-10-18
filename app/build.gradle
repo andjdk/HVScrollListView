@@ -32,5 +32,5 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:24.0.0'
     testCompile 'junit:junit:4.12'
-    compile(name: 'hvscrollviewlibrary-1.0', ext: 'aar')
+    compile(name: 'hvscrollviewlibrary-1.0.1', ext: 'aar')
 }

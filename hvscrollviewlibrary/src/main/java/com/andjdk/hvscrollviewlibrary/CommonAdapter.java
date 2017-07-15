@@ -33,40 +33,42 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 /**
  * listview通用的adapter类
- * @author tanxiongliang
  *
  * @param <T>
+ * @author tanxiongliang
  */
-public abstract class CommonAdapter<T> extends BaseAdapter{
+public abstract class CommonAdapter<T> extends BaseAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
     private List<T> mDatas;
     private int layoutId;
-    private ArrayList<View> movableViewList=new ArrayList<>();
+    private HashSet<View> movableViewList = new LinkedHashSet<>();
     private LinearLayout moveViewLayout;
 
     public CommonAdapter(Context mContext,
-                         List<T> mDatas,int layoutId) {
+                         List<T> mDatas, int layoutId) {
         super();
         this.mContext = mContext;
         this.mDatas = mDatas;
-        this.layoutId=layoutId;
-        mInflater=LayoutInflater.from(mContext);
+        this.layoutId = layoutId;
+        mInflater = LayoutInflater.from(mContext);
     }
 
     @Override
     public int getCount() {
-        return mDatas==null?0:mDatas.size();
+        return mDatas == null ? 0 : mDatas.size();
     }
 
     @Override
     public T getItem(int position) {
-        if(null!=mDatas){
+        if (null != mDatas) {
             return mDatas.get(position);
         }
         return null;
@@ -79,22 +81,33 @@ public abstract class CommonAdapter<T> extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder=ViewHolder.get(mContext, convertView, parent, layoutId, position);
-        LinearLayout moveLayout=holder.getView(R.id.move_layout);
+        ViewHolder holder = ViewHolder.get(mContext, convertView, parent, layoutId, position);
+        LinearLayout moveLayout = holder.getView(R.id.move_layout);
+
+        moveLayout.setScrollX(offsetX);
+
         movableViewList.add(moveLayout);
-        convert(holder,getItem(position),position,movableViewList);
+        convert(holder, getItem(position), position, movableViewList);
 
         return holder.getConvertView();
     }
 
-    public abstract void convert(ViewHolder holder, T t,int position,ArrayList<View> movableViewList);
+    public abstract void convert(ViewHolder holder, T t, int position, Collection<View> movableViewList);
 
 
-    public ArrayList<View> getMovableViewList() {
+    public HashSet<View> getMovableViewList() {
         return movableViewList;
     }
 
-    public void setMovableViewList(ArrayList<View> movableViewList) {
+    public CommonAdapter setMovableViewList(HashSet<View> movableViewList) {
         this.movableViewList = movableViewList;
+        return this;
+    }
+
+    // 可滑动区域的横向偏移值
+    private int offsetX = 0;
+
+    public void setHorizontalOffset(int offsetX) {
+        this.offsetX = offsetX;
     }
 }

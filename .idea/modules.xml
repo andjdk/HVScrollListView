@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/HVScrollView.iml" filepath="$PROJECT_DIR$/HVScrollView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HVScrollListView.iml" filepath="$PROJECT_DIR$/HVScrollListView.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hvscrollviewlibrary/hvscrollviewlibrary.iml" filepath="$PROJECT_DIR$/hvscrollviewlibrary/hvscrollviewlibrary.iml" />
     </modules>
   </component>
 </project>

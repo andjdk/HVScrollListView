@@ -3,14 +3,14 @@
 HVScrollListView是一个可以实现横纵滑动的列表控件。如股票列表。以下为使用此控件实现的效果图：
 ![](https://github.com/andjdk/HVScrollListView/blob/master/index.gif)
 
-##版本升级
+## 版本升级
 hvscrollviewlibrary-1.0
 
 hvscrollviewlibrary-1.0.1 :增加了上拉加载更多
 
-##使用方式
+## 使用方式
 
-###step 1：
+### step 1：
  a、把hvscrollviewlibrary-1.0.aar粘贴到lib目录下。b、在build.gradle中增加`repositories {
     flatDir {
         dirs 'libs'
@@ -27,7 +27,7 @@ hvscrollviewlibrary-1.0.1 :增加了上拉加载更多
         android:layout_height="match_parent">
     </com.andjdk.hvscrollviewlibrary.HVScrollView>
 
-###step 2
+### step 2
     HVScrollView hvScrollView= (HVScrollView) findViewById(R.id.hv_scrollview);
         List<StockDataInfo> stockDataInfoList=new ArrayList<>();
         for (int i = 0; i < 30; i++) {
@@ -116,7 +116,7 @@ hvscrollviewlibrary-1.0.1 :增加了上拉加载更多
     
 
 
-###step 3：在adapter中初始化数据
+### step 3：在adapter中初始化数据
 
 	
     public class StockListAdapter extends CommonAdapter<StockDataInfo> {
@@ -140,7 +140,7 @@ hvscrollviewlibrary-1.0.1 :增加了上拉加载更多
     }}
 
 
-###实现点击列表
+### 实现点击列表
 
     	//点击列表item
         hvScrollView.setOnItemClick(new HVScrollView.OnItemClickedListener() {
@@ -157,7 +157,7 @@ hvscrollviewlibrary-1.0.1 :增加了上拉加载更多
             }
         });
 
-###1.0.1上拉加载更多
+### 1.0.1上拉加载更多
 
     hvScrollView.setOnLoadMoreListener(new HVScrollView.OnLoadMoreListener() {
             @Override

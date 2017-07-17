@@ -48,106 +48,116 @@ public class ViewHolder {
         super();
     }
 
-    public ViewHolder(Context context, ViewGroup parent, int layoutId, int position){
-        this.mPosition=position;
-        this.mViews=new SparseArray<View>();
-        mConvertView= LayoutInflater.from(context).inflate(layoutId, parent,false);
+    public ViewHolder(Context context, ViewGroup parent, int layoutId, int position) {
+        this.mPosition = position;
+        this.mViews = new SparseArray<View>();
+        mConvertView = LayoutInflater.from(context).inflate(layoutId, parent, false);
         mConvertView.setTag(this);
     }
 
-    public static ViewHolder get(Context context,View convertView,ViewGroup parent,int layoutId,int position){
-        if(convertView==null){
+    public static ViewHolder get(Context context, View convertView, ViewGroup parent, int layoutId, int position) {
+        if (convertView == null) {
             return new ViewHolder(context, parent, layoutId, position);
-        }else{
-            ViewHolder holder=(ViewHolder) convertView.getTag();
+        } else {
+            ViewHolder holder = (ViewHolder) convertView.getTag();
             return holder;
         }
     }
 
     /**
      * 通过viewId获取控件
+     *
      * @param viewId
      * @return
      */
-    public <T extends View> T getView(int viewId){
-        View view=mViews.get(viewId);
-        if(view==null){
-            view=mConvertView.findViewById(viewId);
+    public <T extends View> T getView(int viewId) {
+        View view = mViews.get(viewId);
+        if (view == null) {
+            view = mConvertView.findViewById(viewId);
             mViews.put(viewId, view);
         }
         return (T) view;
     }
 
 
-    public View getConvertView(){
+    public View getConvertView() {
         return mConvertView;
     }
 
     /**
      * 设置ViewHolder里面TextView的值
+     *
      * @param viewId
      * @param text
      * @return
      */
-    public ViewHolder setText(int viewId,String text){
-        TextView tv=getView(viewId);
+    public ViewHolder setText(int viewId, String text) {
+        TextView tv = getView(viewId);
         tv.setText(text);
         return this;
     }
 
     /**
      * 设置ViewHolder里面TextColor值
+     *
      * @param viewId
      * @param textColor
      * @return
      */
-    public ViewHolder setTextColor(int viewId,int textColor){
-        TextView tv=getView(viewId);
+    public ViewHolder setTextColor(int viewId, int textColor) {
+        TextView tv = getView(viewId);
         tv.setTextColor(textColor);
         return this;
     }
 
     /**
      * 设置ViewHolder里面ImageView的值
+     *
      * @param viewId
      * @param resId
      * @return
      */
-    public ViewHolder setImageResource(int viewId,int resId){
-        ImageView view=getView(viewId);
+    public ViewHolder setImageResource(int viewId, int resId) {
+        ImageView view = getView(viewId);
         view.setImageResource(resId);
         return this;
     }
+
     /**
      * 设置ViewHolder里面ImageView的值
+     *
      * @param viewId
      * @param bitmap
      * @return
      */
-    public ViewHolder setImageBitmap(int viewId,Bitmap bitmap){
-        ImageView view=getView(viewId);
+    public ViewHolder setImageBitmap(int viewId, Bitmap bitmap) {
+        ImageView view = getView(viewId);
         view.setImageBitmap(bitmap);
         return this;
     }
+
     /**
      * 设置ViewHolder里面ImageView的值
+     *
      * @param viewId
      * @param drawable
      * @return
      */
-    public ViewHolder setImageDrawable(int viewId,Drawable drawable){
-        ImageView view=getView(viewId);
+    public ViewHolder setImageDrawable(int viewId, Drawable drawable) {
+        ImageView view = getView(viewId);
         view.setImageDrawable(drawable);
         return this;
     }
+
     /**
      * 设置ViewHolder里面ImageView的值
+     *
      * @param viewId
      * @param url
      * @return
      */
-    public ViewHolder setImageURI(int viewId,String url){
-        ImageView view=getView(viewId);
+    public ViewHolder setImageURI(int viewId, String url) {
+        ImageView view = getView(viewId);
 //		Imageloader.getLoader(view,url);
         return this;
     }

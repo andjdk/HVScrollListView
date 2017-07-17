@@ -34,11 +34,11 @@ import com.andjdk.hvscrollviewlibrary.CommonAdapter;
 import com.andjdk.hvscrollviewlibrary.ViewHolder;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
  * Created by andjdk on 2016/10/13.
- *
  */
 public class StockListAdapter extends CommonAdapter<StockDataInfo> {
 
@@ -48,15 +48,15 @@ public class StockListAdapter extends CommonAdapter<StockDataInfo> {
     }
 
     @Override
-    public void convert(ViewHolder holder, StockDataInfo stockDataInfo, int position, ArrayList<View> movableViewList) {
-        holder.setText(R.id.text1,stockDataInfo.getStockName());
-        holder.setText(R.id.text2,stockDataInfo.getPriceLastest());
-        holder.setText(R.id.text3,stockDataInfo.getPriceOffsetRate());
-        holder.setText(R.id.text4,stockDataInfo.getPriceHigh());
-        holder.setText(R.id.text5,stockDataInfo.getPriceLow());
-        holder.setText(R.id.text6,stockDataInfo.getPriceOpen());
-        holder.setText(R.id.text7,stockDataInfo.getPricePreClose());
-        holder.setText(R.id.text8,stockDataInfo.getTradVulumes());
-        holder.setText(R.id.text9,stockDataInfo.getTotalMarketValue());
+    public void convert(ViewHolder holder, StockDataInfo stockDataInfo, int position, Collection<View> movableViewList) {
+        holder.setText(R.id.text1, stockDataInfo.getStockName());
+        holder.setText(R.id.text2, stockDataInfo.getPriceLastest());
+        holder.setText(R.id.text3, stockDataInfo.getPriceOffsetRate());
+        holder.setText(R.id.text4, stockDataInfo.getPriceHigh());
+        holder.setText(R.id.text5, stockDataInfo.getPriceLow());
+        holder.setText(R.id.text6, stockDataInfo.getPriceOpen());
+        holder.setText(R.id.text7, stockDataInfo.getPricePreClose());
+        holder.setText(R.id.text8, stockDataInfo.getTradVulumes());
+        holder.setText(R.id.text9, stockDataInfo.getTotalMarketValue());
     }
 }

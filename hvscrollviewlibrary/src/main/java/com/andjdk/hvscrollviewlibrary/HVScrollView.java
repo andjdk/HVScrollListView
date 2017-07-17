@@ -41,7 +41,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.Collection;
 
 import static com.andjdk.hvscrollviewlibrary.DisplayUtil.dip2px;
 
@@ -66,14 +66,14 @@ public class HVScrollView extends RelativeLayout {
     private ListView mStockListView;
     private Object mAdapter;
 
-    private ArrayList<View> mMovableViewList = new ArrayList();
+    private Collection<View> mMovableViewList;
 
     private Context context;
     private int mMovableTotalWidth = 0;
 
     private int mMoveViewWidth = 70;
     private int mFixViewWidth = 80;
-    private int mItemViewHeight=50;
+    private int mItemViewHeight = 50;
 
     private LinearLayout footerLayout;
 
@@ -121,7 +121,7 @@ public class HVScrollView extends RelativeLayout {
             textView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(onHeaderClickedListener!=null){
+                    if (onHeaderClickedListener != null) {
                         onHeaderClickedListener.onHeadViewClick(((TextView) v).getText().toString());
                     }
                 }
@@ -135,16 +135,16 @@ public class HVScrollView extends RelativeLayout {
     private View buildMoveableListView() {
         RelativeLayout linearLayout = new RelativeLayout(getContext());
         mStockListView = new ListView(getContext());
-        if(null !=mAdapter){
+        if (null != mAdapter) {
             if (mAdapter instanceof CommonAdapter) {
                 mStockListView.setAdapter((CommonAdapter) mAdapter);
                 mMovableViewList = ((CommonAdapter) mAdapter).getMovableViewList();
             }
         }
 
-        footerLayout=new LinearLayout(getContext());
+        footerLayout = new LinearLayout(getContext());
         footerLayout.setGravity(Gravity.CENTER);
-        ProgressBar progressBar =new ProgressBar(getContext());
+        ProgressBar progressBar = new ProgressBar(getContext());
         footerLayout.addView(progressBar);
         footerLayout.setVisibility(GONE);
         mStockListView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -152,10 +152,10 @@ public class HVScrollView extends RelativeLayout {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 //当滑动到底部时
-                if(mTotalItemCount==mLastVisibleItem && scrollState == SCROLL_STATE_IDLE) {
+                if (mTotalItemCount == mLastVisibleItem && scrollState == SCROLL_STATE_IDLE) {
                     if (!isLoading) {
                         isLoading = true;
-                        if(null !=onLoadMoreListener){
+                        if (null != onLoadMoreListener) {
                             onLoadMoreListener.onLoadingMore();
                             footerLayout.setVisibility(View.VISIBLE);//显示底部布局
                         }
@@ -166,9 +166,9 @@ public class HVScrollView extends RelativeLayout {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 mFirstVisibleItem = firstVisibleItem;
-                mTotalItemCount=totalItemCount;
-                mLastVisibleItem=firstVisibleItem+visibleItemCount;
-                mVisibleItemCount=visibleItemCount;
+                mTotalItemCount = totalItemCount;
+                mLastVisibleItem = firstVisibleItem + visibleItemCount;
+                mVisibleItemCount = visibleItemCount;
             }
         });
         mStockListView.setOnItemClickListener(mOnItemClickListener);
@@ -180,14 +180,14 @@ public class HVScrollView extends RelativeLayout {
         return linearLayout;
     }
 
-    public void onLoadingComplete(){
-        if(null !=footerLayout){
-            ((Activity)context).runOnUiThread(new Runnable() {
+    public void onLoadingComplete() {
+        if (null != footerLayout) {
+            ((Activity) context).runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     footerLayout.setVisibility(GONE);
-                    isLoading=false;
-                    mStockListView.setSelection(mLastVisibleItem-mVisibleItemCount+1);
+                    isLoading = false;
+                    mStockListView.setSelection(mLastVisibleItem - mVisibleItemCount + 1);
                 }
             });
         }
@@ -268,21 +268,31 @@ public class HVScrollView extends RelativeLayout {
             mFixX = 0;
             mLayoutTitleMovable.scrollTo(0, 0);
             if (null != mMovableViewList) {
-                for (int i = 0; i < mMovableViewList.size(); i++) {
-                    mMovableViewList.get(i).scrollTo(0, 0);
-                }
-            }
 
-        } else {
-            if (mLayoutTitleMovable.getWidth() + Math.abs(mFixX) > MovableTotalWidth()) {
-                mLayoutTitleMovable.scrollTo(MovableTotalWidth() - mLayoutTitleMovable.getWidth(), 0);
-                if (null != mMovableViewList) {
-                    for (int i = 0; i < mMovableViewList.size(); i++) {
-                        mMovableViewList.get(i).scrollTo(MovableTotalWidth() - mLayoutTitleMovable.getWidth(), 0);
+                updateAdapterViewHorizontalOffset(0);
+                for (View view : mMovableViewList) {
+                    view.scrollTo(0, 0);
+                }
+
+            } else {
+                if (mLayoutTitleMovable.getWidth() + Math.abs(mFixX) > MovableTotalWidth()) {
+                    int offsetX = MovableTotalWidth() - mLayoutTitleMovable.getWidth();
+                    mLayoutTitleMovable.scrollTo(offsetX, 0);
+
+                    updateAdapterViewHorizontalOffset(offsetX);
+                    if (null != mMovableViewList) {
+                        for (View view : mMovableViewList) {
+                            view.scrollTo(offsetX, 0);
+                        }
                     }
                 }
             }
         }
+    }
+
+    private void updateAdapterViewHorizontalOffset(int offset) {
+        if (mAdapter != null)
+            ((CommonAdapter) mAdapter).setHorizontalOffset(offset);
     }
 
 
@@ -314,9 +324,10 @@ public class HVScrollView extends RelativeLayout {
                     }
                     mLayoutTitleMovable.scrollTo(mMoveOffsetX, 0);
                     if (null != mMovableViewList) {
-                        for (int i = 0; i < mMovableViewList.size(); i++) {
+                        updateAdapterViewHorizontalOffset(mMoveOffsetX);
 
-                            mMovableViewList.get(i).scrollTo(mMoveOffsetX, 0);
+                        for (View view : mMovableViewList) {
+                            view.scrollTo(mMoveOffsetX, 0);
                         }
                     }
                 }
@@ -350,7 +361,7 @@ public class HVScrollView extends RelativeLayout {
     }
 
 
-    private OnHeaderClickedListener onHeaderClickedListener=null;
+    private OnHeaderClickedListener onHeaderClickedListener = null;
 
     public OnHeaderClickedListener getOnHeaderClickedListener() {
         return onHeaderClickedListener;
@@ -367,6 +378,7 @@ public class HVScrollView extends RelativeLayout {
         public void onHeadViewClick(String string);
 
     }
+
     private OnLoadMoreListener onLoadMoreListener;
 
     public OnLoadMoreListener getOnLoadMoreListener() {
@@ -377,7 +389,7 @@ public class HVScrollView extends RelativeLayout {
         this.onLoadMoreListener = onLoadMoreListener;
     }
 
-    public interface OnLoadMoreListener{
+    public interface OnLoadMoreListener {
         void onLoadingMore();
     }
 
